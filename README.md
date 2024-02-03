@@ -8,6 +8,5 @@ We would like to acknowledge the following API providers, making this project po
 
 - [Strava Developers](https://developers.strava.com/)
 - [Spotify for Developers](https://developer.spotify.com/)
-- ...
 
 If you use or distribute this software, please ensure proper attribution to this repository and these providers.
