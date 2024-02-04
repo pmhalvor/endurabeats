@@ -38,4 +38,4 @@ kill $FLASK_PID
 echo "Updating tracklists..."
 python src/tracklists.py
 
-echo "Shutting down..."
+echo "Exiting endurabeats..."
