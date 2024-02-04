@@ -2,7 +2,7 @@
 A light-weight API integration that syncs music played over Spotify to activity posted on Strava
 
 
-## Acknowledgements
+## Acknowledgments
 
 We would like to acknowledge the following API providers, making this project possible:
 
