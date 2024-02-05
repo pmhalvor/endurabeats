@@ -28,7 +28,7 @@ sleep 3
 
 # Run authorize.py
 echo "Running authorization workflow..."
-python src/authorize.py
+python src/authorize.py > logs/auth.log
 
 # Kill the Flask server
 echo "Killing login client..."
@@ -36,6 +36,6 @@ kill $FLASK_PID
 
 # Run tracklists.py
 echo "Updating tracklists..."
-python src/tracklists.py
+python src/tracklists.py > logs/tracklists.log
 
 echo "Exiting endurabeats..."
