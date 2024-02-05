@@ -100,7 +100,7 @@ activities.head()
 
 # %%
 def preprocess_tracks(recent_played_df):
-    recent_played_df = recent_played_df.copy().sort_values("played_at")
+    recent_played_df = recent_played_df.copy().sort_values("played_at", ascending=False)
 
     # convert to datetime
     recent_played_df["start"] = pd.to_datetime(recent_played_df["played_at"], format='mixed')
@@ -150,7 +150,7 @@ def preprocess_extra_tracks(extra_tracks):
 
     return extra_tracks[["start", "end", "track_name", "artist", "id"]]
 
-extra_tracks = preprocess_extra_tracks(extra_tracks)
+extra_tracks = preprocess_extra_tracks(extra_tracks).sort_values("start", ascending=True)
 extra_tracks.head()
 
 # %%

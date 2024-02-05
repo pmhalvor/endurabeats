@@ -1,3 +1,4 @@
+import datetime as dt
 import json
 import os 
 import requests as r 
@@ -52,13 +53,16 @@ def preprocess_activities(raw_activities):
 
 
 def preprocess_tracks(raw_recent_played):
-    recent_played_df = pd.DataFrame(raw_recent_played["items"]).sort_values("played_at")
+    recent_played_df = pd.DataFrame(raw_recent_played["items"]).sort_values("played_at", ascending=False)
 
     # convert to datetime
     recent_played_df["start"] = pd.to_datetime(recent_played_df["played_at"], format='mixed')
 
     # build end_time
-    expected_end_time = recent_played_df["start"] + pd.to_timedelta(recent_played_df["track"].apply(lambda x: x["duration_ms"]), unit="ms")
+    expected_end_time = (
+        recent_played_df["start"] + 
+        pd.to_timedelta(recent_played_df["track"].apply(lambda x: x["duration_ms"]), unit="ms")
+    )
     next_song_start = recent_played_df["start"].shift(1)
     recent_played_df["end"] = expected_end_time.combine(next_song_start, min)
 
@@ -72,11 +76,11 @@ def preprocess_tracks(raw_recent_played):
     recent_played_df["end"] = recent_played_df["end"].dt.tz_convert("Europe/Oslo")
 
     # drop unnecessary columns
-    return recent_played_df[["start", "end", "track_name", "artist", "id"]]
+    return recent_played_df[["start", "end", "track_name", "artist", "id"]].sort_values("start", ascending=True)
 
 
-def overlap(x, y):
-    return (x.start < y.end) & (x.end > y.start)
+def overlap(x, y, tolerance=dt.timedelta(minutes=3)):
+    return (x.start < y.end + tolerance) & (x.end > y.start - tolerance)
 
 
 def build_track_str(x):
