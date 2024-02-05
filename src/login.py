@@ -38,4 +38,4 @@ def get_code(service):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='localhost', port=3333)
+    app.run(host='localhost', port=3333)
