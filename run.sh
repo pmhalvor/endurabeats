@@ -1,4 +1,5 @@
 #!/bin/bash
+# exports & activate env
 source credentials.sh
 
 if [[ -n $SPOTIFY_CLIENT_ID ]]; then
