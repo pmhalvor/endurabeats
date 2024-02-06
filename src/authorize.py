@@ -198,7 +198,7 @@ def get_tokens(service) -> dict:
         with open(os.environ.get(f"{service.upper()}_TOKENS_PATH", f"{service}_tokens.json"), 'r') as f:
             tokens = json.load(f)
 
-            if tokens.get("access_token") is None:
+            if tokens.get("access_token") is None or tokens.get("refresh_token") is None:
                 tokens = _authorize_service()
 
     else:
@@ -211,8 +211,8 @@ def get_tokens(service) -> dict:
     if time.time() > tokens["expires_at"]:  # purposely fails if tokens["expires_at"] is not set
         tokens = (
             refresh_spotify_tokens(tokens["refresh_token"])
-            if service == "spotify"
-            else refresh_strava_tokens(tokens["refresh_token"])
+            if service == "spotify" else 
+            refresh_strava_tokens(tokens["refresh_token"])
         )
 
     return tokens
