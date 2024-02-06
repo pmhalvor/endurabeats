@@ -9,8 +9,8 @@ TRACKLIST_TEMPLATE = """
 Tracklist:
 {}
 
-Uploaded automatically using https://github.com/pmhalvor/endurabeats/
 """
+# Uploaded automatically using https://github.com/pmhalvor/endurabeats/
 
 
 def load_tokens(filename):
