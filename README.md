@@ -1,5 +1,4 @@
-<!-- insert local image Endurabeats.png -->
-![endurabeats](Endurabeats.png)
+![endurabeats](img/Endurabeats.png)
 A light-weight API integration that syncs music played over Spotify to activity posted on Strava.
 
 

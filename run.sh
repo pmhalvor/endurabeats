@@ -1,19 +1,24 @@
 #!/bin/bash
-# exports & activate env
+# exports 
 source credentials.sh
+
+# activate env
+source $CONDA_PATH
+conda activate endurabeats
+
 
 if [[ -n $SPOTIFY_CLIENT_ID ]]; then
     echo "Spotify credentials set"
 else
     echo "Spotify credentials not set"
-    exit 1
+    #exit 1
 fi
 
 if [[ -n $STRAVA_CLIENT_ID ]]; then
     echo "Strava credentials set"
 else
     echo "Strava credentials not set"
-    exit 1
+    #exit 1
 fi
 
 
