@@ -182,6 +182,16 @@ def refresh_strava_tokens(refresh_token) -> dict:
     return tokens
 
 
+def test_strava_token(access_token):
+    response = requests.get(
+        "https://www.strava.com/api/v3/athlete", 
+        headers={"Authorization": f"Bearer {access_token}"}
+    )
+    print(response.json())
+
+    assert response.ok, "Strava token is invalid"
+
+
 def get_tokens(service) -> dict:
     def _authorize_service():
         if service == "spotify":
@@ -214,6 +224,13 @@ def get_tokens(service) -> dict:
             if service == "spotify" else 
             refresh_strava_tokens(tokens["refresh_token"])
         )
+
+    # extra check for strava
+    if service == "strava":
+        try:
+            test_strava_token(tokens["access_token"])
+        except AssertionError:
+            tokens = _authorize_service(service)
 
     return tokens
 
