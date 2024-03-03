@@ -140,15 +140,17 @@ if __name__ == '__main__':
     activities = preprocess_activities(raw_activities)
 
     # Filter most recent activities
-    recent_activities = activities[activities["start"] > tracks["start"].min()].copy()
+    recent_activities = activities[activities["start"] + dt.timedelta(minutes=30) > tracks["start"].min()].copy()
 
-    # Get tracklist for each activity
-    recent_activities["tracklist"] = recent_activities.apply(get_tracklist, y=tracks, axis=1)
+    # # Get tracklist for each activity
+    if not recent_activities.empty:    
+        recent_activities["tracklist"] = recent_activities.apply(get_tracklist, y=tracks, axis=1)
 
-    # Add tracklist to each activity
-    update_description = lambda x: add_tracklist(x.id, x.tracklist, strava_tokens["access_token"])
-    recent_activities["descriptions"] = recent_activities.apply(update_description, axis=1)
+        # Add tracklist to each activity
+        update_description = lambda x: add_tracklist(x.id, x.tracklist, strava_tokens["access_token"])
+        recent_activities["descriptions"] = recent_activities.apply(update_description, axis=1)
 
-    # Print updated descriptions
-    print(recent_activities[["id", "descriptions"]])
+        # Print updated descriptions
+        print(recent_activities[["id", "descriptions"]])
+    
     print("Complete.")
