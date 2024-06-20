@@ -2,3 +2,6 @@ credentials.sh
 *tokens.json
 
 logs/
+.DS_Store
+.vscode/
+src/__pycache__/
