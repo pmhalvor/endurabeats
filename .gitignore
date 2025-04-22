@@ -1,5 +1,6 @@
 credentials.sh
 *tokens.json
+*token*
 
 logs/
 .DS_Store
